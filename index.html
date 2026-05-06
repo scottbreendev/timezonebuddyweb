@@ -87,7 +87,7 @@
       "applicationSubCategory": "Time Management",
       "softwareVersion": "1.0",
       "description": "Aurora-inspired, privacy-first time zone tracker for iOS and Mac. Track multiple time zones with beautiful daylight-aware zone cards, plan meetings with the Meeting Overlap finder, get DST alerts, and never miss a clock change. Groups, iCloud Sync, Public Holidays, and Lifetime purchase available.",
-      "featureList": "Time zone tracking, Aurora zone cards, Daylight arc display, Time shift planner, Meeting overlap finder, DST alerts and notifications, Groups, iCloud Sync, Public holidays, Share exports, VoiceOver, Dynamic Type, Reduce Motion",
+      "featureList": "Time zone tracking, Aurora zone cards, Daylight arc display, Time shift planner, Meeting overlap finder, DST alerts and notifications, Groups, iCloud Sync, Public holidays, Siri Shortcuts and App Intents, Home Screen Quick Actions, Spotlight integration, Share exports, VoiceOver, Dynamic Type, Reduce Motion",
       "screenshot": "https://tzbuddy.app/images/og-image.png",
       "author": {
         "@type": "Person",
@@ -142,6 +142,11 @@
           "@type": "Question",
           "name": "What is Meeting Overlap?",
           "acceptedAnswer": { "@type": "Answer", "text": "Meeting Overlap finds the best time window to meet across any number of timezones. It calculates which time slots overlap with the work hours of the most people in your tracked zones, ranks them, and shows local times for each zone. Share the result as a clean image or text. Requires Lifetime or Plus." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Time Zone Buddy work with Siri and Shortcuts?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Three App Shortcuts ship with the app and appear automatically in Siri, Spotlight, and the Shortcuts app: 'Plan a meeting in Time Zone Buddy', 'Add a time zone in Time Zone Buddy', and 'Show alerts in Time Zone Buddy'. Long-pressing the Home Screen icon also exposes the same three actions as Quick Actions. Saved zones are indexed in Spotlight with their country flag, region, UTC offset, and both standard and DST abbreviations — search EST, EDT, AEST, or AEDT any time of year and the right zone surfaces. Tap a result to open the zone instantly." }
         },
         {
           "@type": "Question",
@@ -359,6 +364,39 @@
       <div class="feature-icon-tile"
            style="background: linear-gradient(135deg, #3A1A00, #C05A00, #F5A623);">
         🔔
+      </div>
+    </div>
+
+    <!-- Feature 5: Siri / Spotlight / Quick Actions -->
+    <div class="feature-panel flex flex-col md:flex-row items-center gap-12">
+      <!-- Icon tile — replace with device-frame screenshot after App Store launch -->
+      <div class="feature-icon-tile order-2 md:order-1"
+           style="background: linear-gradient(135deg, #1A0D40, #4A2EAA, #8E5BFF);">
+        🎙️
+      </div>
+      <div class="flex-1 order-1 md:order-2 text-center md:text-left">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]">Right where you need it.</h2>
+        <p class="mt-4 text-base text-[var(--color-text-secondary)] max-w-md mx-auto md:mx-0">
+          Long-press the app icon to plan a meeting, add a zone, or jump straight to alerts. Ask Siri or use the Shortcuts app: <em>“Plan a meeting in Time Zone Buddy.”</em>
+        </p>
+        <p class="mt-3 text-base text-[var(--color-text-secondary)] max-w-md mx-auto md:mx-0">
+          Spotlight indexes every zone you've saved with its country flag, region, UTC offset, and <strong class="text-[var(--color-text-primary)]">both abbreviations</strong> — search <em>EST</em>, <em>EDT</em>, <em>AEST</em>, or <em>AEDT</em> any time of year and the right zone surfaces. Tap to open it instantly.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature 6: Built for Apple platforms -->
+    <div class="feature-panel flex flex-col md:flex-row items-center gap-12">
+      <div class="flex-1 text-center md:text-left">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]">Built for Apple, end to end.</h2>
+        <p class="mt-4 text-base text-[var(--color-text-secondary)] max-w-md mx-auto md:mx-0">
+          A native SwiftUI app for iPhone, iPad, and Mac. Liquid Glass surfaces, App Intents, Siri, Spotlight, Quick Actions, the Share Sheet, iCloud Sync, full VoiceOver and Dynamic Type support, and Reduce Motion respect — it feels like Apple shipped it.
+        </p>
+      </div>
+      <!-- Icon tile -->
+      <div class="feature-icon-tile"
+           style="background: linear-gradient(135deg, #0A1E40, #1A4A7A, #2ECAD4);">
+        🍏
       </div>
     </div>
 
@@ -669,10 +707,21 @@
       <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
         <button @click="open = open === 8 ? null : 8" :aria-expanded="open === 8 ? 'true' : 'false'" aria-controls="faq-panel-8"
                 class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
-          <span>How do I restore a purchase?</span>
+          <span>Does Time Zone Buddy work with Siri and Shortcuts?</span>
           <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 8 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
         </button>
         <div id="faq-panel-8" x-show="open === 8" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
+          Yes. Three App Shortcuts ship with the app and appear automatically in Siri, Spotlight, and the Shortcuts app: <em>“Plan a meeting in Time Zone Buddy”</em>, <em>“Add a time zone in Time Zone Buddy”</em>, and <em>“Show alerts in Time Zone Buddy”</em>. Long-pressing the Home Screen icon exposes the same three Quick Actions. Saved zones are indexed in Spotlight with their country flag, region, UTC offset, and <strong>both standard and DST abbreviations</strong> — search <em>EST</em>, <em>EDT</em>, <em>AEST</em>, or <em>AEDT</em> any time of year and the right zone surfaces. Tap a result to open the zone instantly.
+        </div>
+      </div>
+
+      <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
+        <button @click="open = open === 9 ? null : 9" :aria-expanded="open === 9 ? 'true' : 'false'" aria-controls="faq-panel-9"
+                class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
+          <span>How do I restore a purchase?</span>
+          <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 9 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="faq-panel-9" x-show="open === 9" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
           Open Time Zone Buddy → Settings → Restore Purchases. Your Lifetime or Plus subscription will be restored automatically using your Apple ID.
         </div>
       </div>

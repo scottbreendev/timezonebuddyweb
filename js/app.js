@@ -87,6 +87,8 @@ document.addEventListener('alpine:init', () => {
         a: 'Yes. Time Zone Buddy has no servers, no accounts, and no analytics. Everything stays on your device. iCloud Sync (Plus only) stores data in your personal iCloud account — not ours.' },
       { q: 'How do DST alerts work?',
         a: 'When a tracked timezone has an upcoming daylight saving change within 7 days, an amber banner appears on the Home screen (Lifetime/Plus only). Optional push notifications fire at 7 days before, the business day before, the morning of, and the day after — all scheduled on-device.' },
+      { q: 'Does Time Zone Buddy work with Siri and Shortcuts?',
+        a: 'Yes. Three App Shortcuts ship with the app and appear automatically in Siri, Spotlight, and the Shortcuts app: "Plan a meeting in Time Zone Buddy", "Add a time zone in Time Zone Buddy", and "Show alerts in Time Zone Buddy". Long-pressing the Home Screen icon exposes the same three Quick Actions. Saved zones are indexed in Spotlight — tap a result to open the zone instantly.' },
       { q: 'What are public holidays?',
         a: 'Lifetime and Plus subscribers see upcoming public holidays for each location in the detail screen. Data covers 100+ countries and is sourced from Nager.Date — a free, open-source public holiday API (MIT licence). Holiday data is cached on your device and works offline. A weekly version check runs automatically — if Nager.Date has updated their data, the cache refreshes so corrections reach you without waiting for the next annual cycle. Data is best-effort; some regional or local observances may not be reflected.' },
       { q: 'What is Meeting Overlap?',
