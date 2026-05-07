@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" x-data="themeToggle" x-init="init()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Clock App for iPhone &amp; iPad — Time Zone Buddy</title>
+  <meta name="description" content="Time Zone Buddy is the best free world clock app for iPhone and iPad. Track multiple time zones, see daylight hours in real time, plan meetings across the globe, and get DST alerts — all with zero data collection." />
+  <meta name="keywords" content="world clock app, world clock iPhone, world clock iPad, multiple time zones iPhone, best world clock app iOS, free world clock app, world time zones app" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/icon.png" />
+  <link rel="apple-touch-icon" href="images/icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="World Clock App for iPhone &amp; iPad — Time Zone Buddy" />
+  <meta property="og:description" content="Time Zone Buddy is the best free world clock app for iPhone and iPad. Track multiple time zones, see daylight hours in real time, and plan meetings across the globe." />
+  <meta property="og:image" content="https://tzbuddy.app/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tzbuddy.app/world-clock-app.html" />
+  <meta property="og:site_name" content="Time Zone Buddy" />
+  <link rel="canonical" href="https://tzbuddy.app/world-clock-app.html" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="World Clock App for iPhone &amp; iPad — Time Zone Buddy" />
+  <meta name="twitter:description" content="Time Zone Buddy is the best free world clock app for iPhone and iPad. Track multiple time zones, see daylight hours in real time, and plan meetings across the globe." />
+  <meta name="twitter:image" content="https://tzbuddy.app/images/og-image.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/app.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Time Zone Buddy",
+    "alternativeName": "World Clock App",
+    "url": "https://tzbuddy.app/",
+    "downloadUrl": "https://apps.apple.com/us/app/time-zone-buddy/id6760805989",
+    "operatingSystem": "iOS 16+, iPadOS 16+",
+    "applicationCategory": ["ProductivityApplication", "UtilitiesApplication"],
+    "description": "Time Zone Buddy is the world clock app for iPhone and iPad. Track multiple time zones with daylight-aware zone cards, plan meetings across the globe, and get DST alerts — all with zero data collection.",
+    "author": { "@type": "Person", "name": "Scott Breen" },
+    "offers": [
+      { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "name": "Free" },
+      { "@type": "Offer", "price": "39.99", "priceCurrency": "AUD", "name": "Lifetime" },
+      { "@type": "Offer", "price": "14.99", "priceCurrency": "AUD", "name": "Plus Annual" }
+    ]
+  }
+  </script>
+</head>
+
+<body class="bg-[var(--color-bg)]" :class="{ dark: dark }">
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav x-data="stickyNav" x-init="init()"
+       class="fixed top-0 inset-x-0 z-50 bg-[var(--color-surface)] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 font-bold text-[var(--color-text-primary)]">
+        <img src="images/icon.png" alt="" class="w-6 h-6" aria-hidden="true" />
+        Time Zone Buddy
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--color-text-secondary)]">
+        <a href="index.html#features" class="hover:text-[var(--color-brand)] transition-colors">Features</a>
+        <a href="index.html#plans"    class="hover:text-[var(--color-brand)] transition-colors">Plans</a>
+        <a href="index.html#faq"      class="hover:text-[var(--color-brand)] transition-colors">FAQ</a>
+        <a href="support.html"        class="hover:text-[var(--color-brand)] transition-colors">Support</a>
+      </div>
+
+      <!-- Right controls -->
+      <div class="flex items-center gap-2">
+        <!-- Dark/light toggle -->
+        <button @click="toggle()" aria-label="Toggle dark mode"
+                class="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors">
+          <svg x-show="!dark" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+          <svg x-show="dark"  class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
+        <!-- CTA -->
+        <a href="https://apps.apple.com/us/app/time-zone-buddy/id6760805989?utm_source=website&utm_medium=cta_button&utm_campaign=world_clock_page"
+           class="hidden md:inline-flex items-center gap-2 bg-[var(--color-brand)] text-white font-semibold text-sm px-4 py-2 rounded-xl hover:bg-[var(--color-brand-hover)] transition-colors">
+          Download Free
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button @click="menuOpen = !menuOpen" class="md:hidden p-2 text-[var(--color-text-muted)]" aria-label="Toggle menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path x-show="!menuOpen" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            <path x-show="menuOpen"  stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu dropdown -->
+    <div x-show="menuOpen" x-transition class="md:hidden bg-[var(--color-surface)] border-t border-[var(--color-border)] px-4 pb-4">
+      <a href="index.html#features" @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">Features</a>
+      <a href="index.html#plans"    @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">Plans</a>
+      <a href="index.html#faq"      @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">FAQ</a>
+      <a href="support.html"        @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">Support</a>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+
+    <!-- ── Page Hero ───────────────────────────────────────── -->
+    <div class="bg-[var(--color-surface)] border-b border-[var(--color-border)] py-12 text-center">
+      <nav aria-label="Breadcrumb" class="text-sm text-[var(--color-text-muted)] mb-4">
+        <a href="index.html" class="hover:text-[var(--color-brand)]">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-[var(--color-text-primary)]">World Clock App</span>
+      </nav>
+      <h1 class="text-4xl font-extrabold text-[var(--color-text-primary)]">The World Clock App Built for iPhone</h1>
+      <p class="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto px-4">
+        Track every city and country that matters to you — in one beautiful, privacy-first world clock app for iPhone and iPad.
+      </p>
+      <div class="mt-8">
+        <a href="https://apps.apple.com/us/app/time-zone-buddy/id6760805989?utm_source=website&utm_medium=cta_button&utm_campaign=world_clock_page"
+           class="inline-flex items-center">
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+               alt="Download on the App Store" class="h-12 dark:hidden" />
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg"
+               alt="" class="h-12 hidden dark:block" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+
+    <!-- ── What is a world clock app ───────────────────────── -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6">What is a world clock app?</h2>
+      <p class="text-base text-[var(--color-text-secondary)] mb-4">
+        A world clock app lets you see the current local time in multiple cities and countries at once — without mental arithmetic or switching between apps. Whether you're collaborating with a team across continents, keeping in touch with family abroad, or managing calls across different time zones, a good world clock app keeps everyone's time visible at a glance.
+      </p>
+      <p class="text-base text-[var(--color-text-secondary)]">
+        Time Zone Buddy goes further than a basic world clock. Each zone card shows daylight arcs, sunrise and sunset times, work hours indicators, and UTC offsets — all updating in real time. It's the world clock app that tells you not just <em>what time</em> it is somewhere, but whether people there are awake, working, or asleep.
+      </p>
+    </section>
+
+    <!-- ── World clock features ─────────────────────────────── -->
+    <section class="bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-10 text-center">
+          Everything a world clock app should do — and more
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🌏</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Track any city, anywhere</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                Search by city, country, or region to add any time zone to your world clock. Free users can track up to 5 zones; Lifetime and Plus unlock unlimited zones.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🌅</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Daylight at a glance</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                Aurora zone cards shift in colour from warm amber at sunrise to vivid cerulean at midday to deep navy at night — so you can see daylight conditions for every tracked location in your world clock instantly.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">💼</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Work hours indicator</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                Customisable work hours per zone let your world clock show at a glance whether your contacts are within business hours or already off for the day — no more guessing.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🔔</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">DST alerts</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                The world clock app that keeps you ahead of clock changes. Get in-app banners and push notifications days before any Daylight Saving Time transition in your tracked zones.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">📂</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Groups</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                Organise your world clock into named groups — one for the EMEA team, another for family, another for clients. Switch between them instantly.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🔒</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Privacy first</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                Unlike many world clock apps that track your usage, Time Zone Buddy collects zero data. No account. No analytics. Everything stays on your device.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Why choose this world clock app ─────────────────── -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6">
+        Why Time Zone Buddy is the world clock app people choose
+      </h2>
+      <p class="text-base text-[var(--color-text-secondary)] mb-4">
+        Most world clock apps show you a list of city names with their current time — and nothing else. Time Zone Buddy reimagines what a world clock app can be. Every zone card is a living snapshot: daylight arcs, sunrise and sunset times, work hours, UTC offsets, and DST status, all in one glance.
+      </p>
+      <p class="text-base text-[var(--color-text-secondary)] mb-4">
+        It's also the only world clock app that combines a time shift planner, meeting overlap finder, and DST push notifications in a single native app — built in SwiftUI for iPhone and iPad, with full VoiceOver, Dynamic Type, and Reduce Motion support.
+      </p>
+      <p class="text-base text-[var(--color-text-secondary)]">
+        Ready to upgrade your world clock? <a href="index.html#features" class="text-[var(--color-brand)] hover:underline">See all features</a> or <a href="index.html#plans" class="text-[var(--color-brand)] hover:underline">explore pricing</a>. Also available: our <a href="time-zone-converter.html" class="text-[var(--color-brand)] hover:underline">time zone converter</a>.
+      </p>
+    </section>
+
+    <!-- ── CTA ─────────────────────────────────────────────── -->
+    <section class="final-cta bg-aurora py-16 text-center text-white">
+      <img src="images/icon.png" alt="" class="w-20 h-20 mx-auto mb-6 rounded-2xl" aria-hidden="true" />
+      <h2 class="text-2xl md:text-3xl font-extrabold">Download the world clock app. Free.</h2>
+      <p class="mt-3 text-white/70 text-base">Available on iPhone and iPad. Free to start.</p>
+      <div class="mt-8">
+        <a href="https://apps.apple.com/us/app/time-zone-buddy/id6760805989?utm_source=website&utm_medium=cta_button&utm_campaign=world_clock_page"
+           class="inline-flex items-center">
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+               alt="Download on the App Store" class="h-14 dark:hidden" />
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg"
+               alt="" class="h-14 hidden dark:block" aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer class="bg-[var(--color-surface)] border-t border-[var(--color-border)] py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--color-text-muted)]">
+      <div class="flex items-center gap-2">
+        <img src="images/icon.png" alt="" class="w-5 h-5" aria-hidden="true" />
+        <span class="font-semibold text-[var(--color-text-secondary)]">Time Zone Buddy</span>
+      </div>
+      <nav class="flex flex-wrap justify-center gap-6" aria-label="Footer">
+        <a href="index.html"               class="hover:text-[var(--color-brand)] transition-colors">Home</a>
+        <a href="index.html#features"      class="hover:text-[var(--color-brand)] transition-colors">Features</a>
+        <a href="index.html#plans"         class="hover:text-[var(--color-brand)] transition-colors">Plans</a>
+        <a href="support.html"             class="hover:text-[var(--color-brand)] transition-colors">Support</a>
+        <a href="privacy-policy.html"      class="hover:text-[var(--color-brand)] transition-colors">Privacy Policy</a>
+        <a href="time-zone-converter.html" class="hover:text-[var(--color-brand)] transition-colors">Time Zone Converter</a>
+      </nav>
+      <p>© 2026 Scott Breen</p>
+    </div>
+  </footer>
+
+</body>
+</html>
