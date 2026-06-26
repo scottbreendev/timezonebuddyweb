@@ -79,7 +79,7 @@
   [
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
+      "@type": ["SoftwareApplication", "MobileApplication"],
       "name": "Time Zone Buddy",
       "alternativeName": "World Clock App",
       "url": "https://tzbuddy.app/",
@@ -88,8 +88,8 @@
       "applicationCategory": ["ProductivityApplication", "UtilitiesApplication"],
       "applicationSubCategory": "Time Management",
       "softwareVersion": "1.0",
-      "description": "Time Zone Buddy is the world clock app and time zone app built for iPhone and iPad. Aurora-inspired, privacy-first time zone tracker. Track multiple time zones with beautiful daylight-aware zone cards, plan meetings with the Meeting Overlap finder, get DST alerts, and never miss a clock change. Groups, iCloud Sync, Public Holidays, and Lifetime purchase available.",
-      "featureList": "Time zone tracking, Aurora zone cards, Daylight arc display, Time shift planner, Meeting overlap finder, DST alerts and notifications, Groups, iCloud Sync, Public holidays, Siri Shortcuts and App Intents, Home Screen Quick Actions, Spotlight integration, Share exports, VoiceOver, Dynamic Type, Reduce Motion",
+      "description": "Time Zone Buddy is the world clock app and time zone app built for iPhone and iPad. Aurora-inspired, privacy-first time zone tracker. Track multiple time zones with beautiful daylight-aware zone cards, plan meetings with the Meeting Overlap finder, get DST alerts, and never miss a clock change. Home Screen and Lock Screen widgets, Groups, iCloud Sync, Public Holidays, and Lifetime purchase available.",
+      "featureList": "Time zone tracking, Aurora zone cards, Daylight arc display, Time shift planner, Meeting overlap finder, DST alerts and notifications, Home Screen and Lock Screen widgets, Meeting Hub widget, Groups, iCloud Sync, Public holidays, Siri Shortcuts and App Intents, Home Screen Quick Actions, Spotlight integration, Share exports, VoiceOver, Dynamic Type, Reduce Motion",
       "screenshot": "https://tzbuddy.app/images/og-image.png",
       "author": {
         "@type": "Person",
@@ -108,7 +108,7 @@
         {
           "@type": "Question",
           "name": "What does the free version include?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Up to 5 time zones, the full aurora zone card display (including daylight, sunrise/sunset, and work hours), and the time-shift planner. Ads are shown on the home and detail screens. Groups, Meeting Overlap, DST alerts, public holidays, notifications, and exports require Lifetime or Plus." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Up to 5 time zones, the full aurora zone card display (including daylight, sunrise/sunset, and work hours), the time-shift planner, and the free Single Zone Home Screen widget (small and medium). Ads are shown on the home and detail screens. Groups, Meeting Overlap, Lock Screen and Meeting Hub widgets, DST alerts, public holidays, notifications, and exports require Lifetime or Plus." }
         },
         {
           "@type": "Question",
@@ -149,6 +149,11 @@
           "@type": "Question",
           "name": "Does Time Zone Buddy work with Siri and Shortcuts?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. Three App Shortcuts ship with the app and appear automatically in Siri, Spotlight, and the Shortcuts app: 'Plan a meeting in Time Zone Buddy', 'Add a time zone in Time Zone Buddy', and 'Show alerts in Time Zone Buddy'. Long-pressing the Home Screen icon also exposes the same three actions as Quick Actions. Saved zones are indexed in Spotlight with their country flag, region, UTC offset, and both standard and DST abbreviations — search EST, EDT, AEST, or AEDT any time of year and the right zone surfaces. Tap a result to open the zone instantly." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Time Zone Buddy have widgets?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Single Zone widget is free and comes in small and medium sizes — it shows any saved city's live time with the same daylight-aware shading as the app, and the medium size adds a day timeline and a work-hours status line with the next start or finish time. Lifetime and Plus add Lock Screen clocks (circular, inline, and rectangular accessory widgets) and the Meeting Hub widget (small, medium, and large) that shows who's in work hours right now across all your zones, who's coming online soon, and who's off duty. Tap any widget to jump straight into the app. Widgets read your data on-device through a private App Group — nothing leaves your device." }
         },
         {
           "@type": "Question",
@@ -286,10 +291,10 @@
       <!-- Left: copy -->
       <div class="flex-1 text-center md:text-left">
         <h1 class="hero-headline text-5xl md:text-6xl font-extrabold text-white leading-tight">
-          Your world clock.<br />Beautifully clear.
+          World Clock &amp; Time Zone App for iPhone.
         </h1>
         <p class="hero-subhead mt-6 text-lg md:text-xl font-medium text-white/75 max-w-lg mx-auto md:mx-0">
-          The time zone app with aurora-inspired zone cards, intelligent scheduling, and DST alerts — all on your device. Zero data collected.
+          Aurora-inspired zone cards, intelligent scheduling, DST alerts, and Home Screen widgets — all on your device. Zero data collected.
         </p>
         <div class="hero-ctas mt-8 flex flex-col sm:flex-row items-center md:items-start gap-4">
           <a href="https://apps.apple.com/us/app/time-zone-buddy/id6760805989?utm_source=website&utm_medium=cta_button&utm_campaign=launch" data-section="hero"
@@ -306,16 +311,20 @@
         </div>
       </div>
 
-      <!-- Right: app icon — screenshots coming after App Store launch -->
+      <!-- Right: Home Screen widgets screenshot in a device frame -->
       <div class="flex-shrink-0 flex flex-col items-center gap-3">
         <div class="relative">
           <div class="absolute inset-0 rounded-[2.5rem] blur-3xl opacity-50"
                style="background: linear-gradient(135deg, #2ECAD4, #2E88D4);"></div>
-          <img src="images/icon.png" alt="Time Zone Buddy app icon"
-               class="relative w-44 h-44 md:w-52 md:h-52 rounded-[2.5rem]"
-               style="box-shadow: 0 32px 64px rgba(46,136,212,0.40);" />
+          <div class="device-frame relative" style="--frame-width: 240px;">
+            <div class="device-screen-clip">
+              <img class="device-screenshot" src="images/ss-01.png"
+                   alt="Time Zone Buddy widgets on the iPhone Home Screen" />
+            </div>
+            <img class="device-overlay" src="images/device-frame.png" alt="" aria-hidden="true" />
+          </div>
         </div>
-        <p class="text-white/35 text-xs font-medium tracking-widest uppercase">Screenshots coming soon</p>
+        <p class="text-white/35 text-xs font-medium tracking-widest uppercase">Widgets on your Home Screen</p>
       </div>
 
     </div>
@@ -325,6 +334,8 @@
   <div class="bg-[var(--color-surface)] border-y border-[var(--color-border)]">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap justify-center gap-6 text-sm font-semibold text-[var(--color-text-secondary)]">
       <span>🕐 5 zones free</span>
+      <span>·</span>
+      <span>🧩 Home Screen &amp; Lock Screen widgets</span>
       <span>·</span>
       <span>✨ Plus from $1.25/month</span>
       <span>·</span>
@@ -336,7 +347,7 @@
   <section class="max-w-3xl mx-auto px-4 sm:px-6 py-16 text-center">
     <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-4">The world clock app built for iPhone.</h2>
     <p class="text-base text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-      Time Zone Buddy is a privacy-first world clock app and time zone app for iPhone and iPad. Track as many time zones as you need, see daylight and work hours at a glance, find the perfect meeting window across continents, and get notified before every clock change — all without sending a single byte to our servers. Whether you work with a global team or just need a reliable <a href="world-clock-app.html" class="text-[var(--color-brand)] hover:underline">world clock</a> and <a href="time-zone-converter.html" class="text-[var(--color-brand)] hover:underline">time zone converter</a> at your fingertips, Time Zone Buddy has you covered.
+      Time Zone Buddy is a privacy-first world clock app and time zone app for iPhone and iPad. Track as many time zones as you need, see daylight and work hours at a glance, find the perfect meeting window across continents, and get notified before every clock change — all without sending a single byte to our servers. Whether you work with a global team or just need a reliable <a href="world-clock-app.html" class="text-[var(--color-brand)] hover:underline">world clock</a>, <a href="time-zone-converter.html" class="text-[var(--color-brand)] hover:underline">time zone converter</a>, or <a href="ios-widgets.html" class="text-[var(--color-brand)] hover:underline">iPhone time zone widget</a> at your fingertips, Time Zone Buddy has you covered.
     </p>
   </section>
 
@@ -403,7 +414,22 @@
       </div>
     </div>
 
-    <!-- Feature 5: Siri / Spotlight / Quick Actions -->
+    <!-- Feature 5: Widgets -->
+    <div class="feature-panel flex flex-col md:flex-row items-center gap-12">
+      <!-- Icon tile — replace with device-frame screenshot after App Store launch -->
+      <div class="feature-icon-tile order-2 md:order-1"
+           style="background: linear-gradient(135deg, #0A1E40, #2E4A8A, #5B6EFF, #2ECAD4);">
+        🧩
+      </div>
+      <div class="flex-1 order-1 md:order-2 text-center md:text-left">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]">The world, on your Home Screen.</h2>
+        <p class="mt-4 text-base text-[var(--color-text-secondary)] max-w-md mx-auto md:mx-0">
+          The free Single Zone widget keeps any city's live time on your Home Screen in small or medium size, with the same daylight-aware shading as the app — the medium size adds a day timeline and an at-a-glance work-hours status. Lifetime and Plus add Lock Screen clocks and a live Meeting Hub widget showing who's working right now across all your zones.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature 6: Siri / Spotlight / Quick Actions -->
     <div class="feature-panel flex flex-col md:flex-row items-center gap-12">
       <!-- Icon tile — replace with device-frame screenshot after App Store launch -->
       <div class="feature-icon-tile order-2 md:order-1"
@@ -438,13 +464,7 @@
 
   </section>
 
-  <!-- ── Carousel — HIDDEN until App Store screenshots are available ──────── -->
-  <!--
-  TODO: When App Store screenshots are ready:
-    1. Delete the four feature-icon-tile blocks above and restore device-frame blocks.
-    2. Uncomment this entire carousel section.
-    3. Populate ss-01.png through ss-05.png in images/.
-
+  <!-- ── Carousel ──────────────────────────────────────────── -->
   <section class="bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-center text-[var(--color-text-primary)] mb-12">See it in action</h2>
@@ -456,31 +476,25 @@
              @touchstart="onTouchStart($event)" @touchend="onTouchEnd($event)">
           <div class="carousel-slide device-frame" :class="active === 0 ? 'active' : ''">
             <div class="device-screen-clip">
-              <img class="device-screenshot" src="images/ss-01.png" alt="Home — Aurora Zone Cards" />
+              <img class="device-screenshot" src="images/ss-01.png" alt="Time Zone Buddy widgets on the iPhone Home Screen" />
             </div>
             <img class="device-overlay" src="images/device-frame.png" alt="" aria-hidden="true" />
           </div>
           <div class="carousel-slide device-frame" :class="active === 1 ? 'active' : ''">
             <div class="device-screen-clip">
-              <img class="device-screenshot" src="images/ss-02.png" alt="Time Shift Planner" />
+              <img class="device-screenshot" src="images/ss-02.png" alt="Meeting Hub dashboard" />
             </div>
             <img class="device-overlay" src="images/device-frame.png" alt="" aria-hidden="true" />
           </div>
           <div class="carousel-slide device-frame" :class="active === 2 ? 'active' : ''">
             <div class="device-screen-clip">
-              <img class="device-screenshot" src="images/ss-03.png" alt="Meeting Overlap" />
+              <img class="device-screenshot" src="images/ss-03.png" alt="Zone detail view" />
             </div>
             <img class="device-overlay" src="images/device-frame.png" alt="" aria-hidden="true" />
           </div>
           <div class="carousel-slide device-frame" :class="active === 3 ? 'active' : ''">
             <div class="device-screen-clip">
-              <img class="device-screenshot" src="images/ss-04.png" alt="Detail View" />
-            </div>
-            <img class="device-overlay" src="images/device-frame.png" alt="" aria-hidden="true" />
-          </div>
-          <div class="carousel-slide device-frame" :class="active === 4 ? 'active' : ''">
-            <div class="device-screen-clip">
-              <img class="device-screenshot" src="images/ss-05.png" alt="Groups" />
+              <img class="device-screenshot" src="images/ss-04.png" alt="Home screen with Aurora zone cards" />
             </div>
             <img class="device-overlay" src="images/device-frame.png" alt="" aria-hidden="true" />
           </div>
@@ -501,17 +515,15 @@
                   class="p-2 rounded-full border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-brand)] transition-colors">→</button>
         </div>
 
-        <p class="mt-4 text-sm text-[var(--color-text-muted]">
-          <span x-show="active === 0">Home — Aurora Zone Cards</span>
-          <span x-show="active === 1">Time Shift Planner</span>
-          <span x-show="active === 2">Meeting Overlap</span>
-          <span x-show="active === 3">Detail View</span>
-          <span x-show="active === 4">Groups</span>
+        <p class="mt-4 text-sm text-[var(--color-text-muted)]">
+          <span x-show="active === 0">Widgets on your Home Screen</span>
+          <span x-show="active === 1">Meeting Hub</span>
+          <span x-show="active === 2">Detail View</span>
+          <span x-show="active === 3">Home — Aurora Zone Cards</span>
         </p>
       </div>
     </div>
   </section>
-  -->
 
   <!-- ── Plans ────────────────────────────────────────────── -->
   <section id="plans" class="max-w-6xl mx-auto px-4 sm:px-6 py-24">
@@ -535,6 +547,7 @@
           <li class="flex gap-2"><span class="text-green-500">&#10003;</span> Up to 5 time zones</li>
           <li class="flex gap-2"><span class="text-green-500">&#10003;</span> Aurora zone cards + daylight</li>
           <li class="flex gap-2"><span class="text-green-500">&#10003;</span> Time shift planner (&#177;12h)</li>
+          <li class="flex gap-2"><span class="text-green-500">&#10003;</span> Single Zone widget (small &amp; medium)</li>
           <li class="flex gap-2 text-[var(--color-text-muted)]"><span>&#10007;</span> Ads shown</li>
           <li class="flex gap-2 text-[var(--color-text-muted)]"><span>&#10007;</span> Groups</li>
           <li class="flex gap-2 text-[var(--color-text-muted)]"><span>&#10007;</span> Meeting Overlap</li>
@@ -566,6 +579,7 @@
           <li class="flex gap-2"><span>&#10003;</span> Time shift planner (&#177;12h)</li>
           <li class="flex gap-2"><span>&#10003;</span> No ads, ever</li>
           <li class="flex gap-2"><span>&#10003;</span> Groups, Meeting Overlap, Exports</li>
+          <li class="flex gap-2"><span>&#10003;</span> <strong>All widgets</strong> &#8212; Home Screen, Lock Screen &amp; Meeting Hub</li>
           <li class="flex gap-2"><span>&#10003;</span> DST alerts &amp; notifications</li>
           <li class="flex gap-2"><span>&#10003;</span> <strong>iCloud Sync</strong> across supported Apple devices</li>
           <li class="flex gap-2"><span>&#10003;</span> <strong>Family Sharing</strong> &#8212; Annual plan, up to 5 people</li>
@@ -592,6 +606,7 @@
           <li class="flex gap-2"><span class="text-green-500">&#10003;</span> Time shift planner (&#177;12h)</li>
           <li class="flex gap-2"><span class="text-green-500">&#10003;</span> No ads, ever</li>
           <li class="flex gap-2"><span class="text-green-500">&#10003;</span> Groups, Meeting Overlap, Exports</li>
+          <li class="flex gap-2"><span class="text-green-500">&#10003;</span> <strong>All widgets</strong> &#8212; Home Screen, Lock Screen &amp; Meeting Hub</li>
           <li class="flex gap-2"><span class="text-green-500">&#10003;</span> DST alerts &amp; notifications</li>
           <li class="flex gap-2 text-[var(--color-text-muted)]"><span>&#10007;</span> iCloud Sync (Plus only)</li>
           <li class="flex gap-2 text-[var(--color-text-muted)]"><span>&#10007;</span> Family Sharing (Annual plan only)</li>
@@ -660,7 +675,7 @@
           <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 0 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
         </button>
         <div id="faq-panel-0" x-show="open === 0" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
-          Up to 5 time zones, the full aurora zone card display (including daylight, sunrise/sunset, and work hours), and the time-shift planner. Ads are shown on the home and detail screens. Groups, Meeting Overlap, DST alerts, public holidays, notifications, and exports require Lifetime or Plus.
+          Up to 5 time zones, the full aurora zone card display (including daylight, sunrise/sunset, and work hours), the time-shift planner, and the free Single Zone Home Screen widget (small &amp; medium). Ads are shown on the home and detail screens. Groups, Meeting Overlap, Lock Screen &amp; Meeting Hub widgets, DST alerts, public holidays, notifications, and exports require Lifetime or Plus.
         </div>
       </div>
 
@@ -763,6 +778,17 @@
         </div>
       </div>
 
+      <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
+        <button @click="open = open === 10 ? null : 10" :aria-expanded="open === 10 ? 'true' : 'false'" aria-controls="faq-panel-10"
+                class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
+          <span>Does Time Zone Buddy have widgets?</span>
+          <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 10 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="faq-panel-10" x-show="open === 10" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
+          Yes. The <strong>Single Zone</strong> widget is free and comes in small and medium sizes — it shows any saved city’s live time with the same daylight-aware shading as the app, and the medium size adds a day timeline and a work-hours status line with the next start or finish time. Lifetime and Plus add <strong>Lock Screen</strong> clocks (circular, inline, and rectangular accessory widgets) and the <strong>Meeting Hub</strong> widget (small, medium, and large) that shows who’s in work hours right now across all your zones, who’s coming online soon, and who’s off duty. Tap any widget to jump straight into the app. Widgets read your data on-device through a private App Group — nothing leaves your device.
+        </div>
+      </div>
+
     </div>
 
     <p class="text-center mt-8">
@@ -803,6 +829,7 @@
         <a href="privacy-policy.html"    class="hover:text-[var(--color-brand)] transition-colors">Privacy Policy</a>
         <a href="world-clock-app.html"   class="hover:text-[var(--color-brand)] transition-colors">World Clock App</a>
         <a href="time-zone-converter.html" class="hover:text-[var(--color-brand)] transition-colors">Time Zone Converter</a>
+        <a href="ios-widgets.html"        class="hover:text-[var(--color-brand)] transition-colors">iOS Widgets</a>
       </nav>
 
       <p>© 2026 Scott Breen</p>

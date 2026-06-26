@@ -50,7 +50,7 @@ document.addEventListener('alpine:init', () => {
 
   Alpine.data('carousel', () => ({
     active: 0,
-    total: 5,           // ss-01 through ss-05
+    total: 4,           // ss-01 through ss-04
     touchStartX: 0,
     get prevIndex() { return (this.active - 1 + this.total) % this.total; },
     get nextIndex() { return (this.active + 1) % this.total; },
@@ -76,7 +76,7 @@ document.addEventListener('alpine:init', () => {
     open: null,
     items: [
       { q: 'What does the free version include?',
-        a: 'Up to 5 time zones, the full aurora zone card display (daylight, sunrise/sunset, work hours), and the time-shift planner. Ads are shown. Groups, Meeting Overlap, DST alerts, notifications, and exports require Lifetime or Plus.' },
+        a: 'Up to 5 time zones, the full aurora zone card display (daylight, sunrise/sunset, work hours), the time-shift planner, and the free Single Zone Home Screen widget (small & medium). Ads are shown. Groups, Meeting Overlap, Lock Screen & Meeting Hub widgets, DST alerts, notifications, and exports require Lifetime or Plus.' },
       { q: 'What is Lifetime? Is it really a one-time purchase?',
         a: 'Yes. The Lifetime option ($39.99 AUD) unlocks everything except iCloud Sync with a single purchase. No subscription, no renewal. You keep all current features forever on iOS, iPadOS, and macOS.' },
       { q: 'Why does Lifetime not include iCloud Sync?',
@@ -93,6 +93,8 @@ document.addEventListener('alpine:init', () => {
         a: 'Lifetime and Plus subscribers see upcoming public holidays for each location in the detail screen. Data covers 100+ countries and is sourced from Nager.Date — a free, open-source public holiday API (MIT licence). Holiday data is cached on your device and works offline. A weekly version check runs automatically — if Nager.Date has updated their data, the cache refreshes so corrections reach you without waiting for the next annual cycle. Data is best-effort; some regional or local observances may not be reflected.' },
       { q: 'What is Meeting Overlap?',
         a: "Meeting Overlap finds the best time window across any number of timezones. It ranks windows by how many people's work hours they cover, and shows local times for each zone. Requires Lifetime or Plus." },
+      { q: 'Does Time Zone Buddy have widgets?',
+        a: "Yes. The Single Zone widget is free and comes in small and medium sizes — it shows any saved city's live time with daylight-aware shading, and the medium size adds a day timeline and a work-hours status line with the next start or finish time. Lifetime and Plus add Lock Screen clocks (circular, inline, and rectangular accessory widgets) and the Meeting Hub widget (small, medium, and large) showing who's working right now across all your zones, who's coming online soon, and who's off duty. Tap any widget to jump straight into the app. Widgets read your data on-device through a private App Group — nothing leaves your device." },
       { q: 'How do I add a time zone?',
         a: 'Tap the + button in the top-right corner. Search by city name, country, timezone abbreviation, or region (e.g. "Australia", "EST", "Tokyo"). Tap a result to add it.' },
       { q: 'Can I edit the name shown on a zone card?',
@@ -128,7 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.from('.hero-headline', { opacity: 0, y: 30, duration: 0.6, ease: 'power2.out' });
   gsap.from('.hero-subhead',  { opacity: 0, y: 30, duration: 0.6, delay: 0.15, ease: 'power2.out' });
   gsap.from('.hero-ctas',     { opacity: 0, y: 30, duration: 0.6, delay: 0.3,  ease: 'power2.out' });
-  gsap.from('.device-frame',  { opacity: 0, scale: 0.95, duration: 0.8, delay: 0.2, ease: 'power2.out' });
+  // Only the hero device frame should do the entrance reveal. The carousel
+  // slides are also `.device-frame` elements, but their opacity is controlled
+  // by the `.carousel-slide.active` CSS rule — letting GSAP write inline
+  // `opacity` onto them permanently breaks the cross-fade (the active slide
+  // gets stuck invisible), so they are excluded here.
+  gsap.from('.device-frame:not(.carousel-slide)', { opacity: 0, scale: 0.95, duration: 0.8, delay: 0.2, ease: 'power2.out' });
 
   // Feature panels — alternate slide from left and right
   document.querySelectorAll('.feature-panel').forEach((panel, i) => {

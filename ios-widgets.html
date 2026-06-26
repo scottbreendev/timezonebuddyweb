@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" x-data="themeToggle" x-init="init()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Zone Widget for iPhone &amp; iPad — Time Zone Buddy</title>
+  <meta name="description" content="Time Zone Buddy brings beautiful, daylight-aware time zone widgets to your iPhone Home Screen and Lock Screen. Free Single Zone widget, plus Lock Screen clocks and Meeting Hub widget with Lifetime or Plus." />
+  <meta name="keywords" content="time zone widget iPhone, time zone widget iOS, world clock widget iPhone, Home Screen time zone widget, Lock Screen clock widget iPhone, iPad time zone widget, iOS 16 widget time zone, meeting hub widget" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/icon.png" />
+  <link rel="apple-touch-icon" href="images/icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Time Zone Widget for iPhone &amp; iPad — Time Zone Buddy" />
+  <meta property="og:description" content="Beautiful, daylight-aware time zone widgets for your iPhone Home Screen and Lock Screen. Free to start — upgrade for Lock Screen clocks and the Meeting Hub widget." />
+  <meta property="og:image" content="https://tzbuddy.app/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tzbuddy.app/ios-widgets.html" />
+  <meta property="og:site_name" content="Time Zone Buddy" />
+  <link rel="canonical" href="https://tzbuddy.app/ios-widgets.html" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Time Zone Widget for iPhone &amp; iPad — Time Zone Buddy" />
+  <meta name="twitter:description" content="Beautiful, daylight-aware time zone widgets for your iPhone Home Screen and Lock Screen. Free to start." />
+  <meta name="twitter:image" content="https://tzbuddy.app/images/og-image.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/app.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["SoftwareApplication", "MobileApplication"],
+    "name": "Time Zone Buddy",
+    "alternativeName": "Time Zone Widget for iPhone",
+    "url": "https://tzbuddy.app/",
+    "downloadUrl": "https://apps.apple.com/us/app/time-zone-buddy/id6760805989",
+    "operatingSystem": "iOS 16+, iPadOS 16+",
+    "applicationCategory": ["ProductivityApplication", "UtilitiesApplication"],
+    "description": "Time Zone Buddy brings beautiful, daylight-aware time zone widgets to your iPhone and iPad Home Screen and Lock Screen. The free Single Zone widget shows any city's live time with aurora shading; Lifetime and Plus unlock Lock Screen clocks and the Meeting Hub widget.",
+    "featureList": "Single Zone Home Screen widget (small & medium), Lock Screen clock widgets (circular, inline, rectangular), Meeting Hub widget (small, medium, large), daylight-aware shading, work-hours status, day timeline, on-device privacy",
+    "author": { "@type": "Person", "name": "Scott Breen" },
+    "offers": [
+      { "@type": "Offer", "price": "0",     "priceCurrency": "AUD", "name": "Free" },
+      { "@type": "Offer", "price": "39.99", "priceCurrency": "AUD", "name": "Lifetime" },
+      { "@type": "Offer", "price": "14.99", "priceCurrency": "AUD", "name": "Plus Annual" }
+    ]
+  }
+  </script>
+
+  <!-- Firebase Analytics -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCn7GMc5UZO7iKN3OsOkC23iQB7Zp9PNtY",
+      authDomain: "time-zone-buddy-pinecode.firebaseapp.com",
+      projectId: "time-zone-buddy-pinecode",
+      storageBucket: "time-zone-buddy-pinecode.firebasestorage.app",
+      messagingSenderId: "808205346526",
+      appId: "1:808205346526:web:3aef061bd46ed801ec844f",
+      measurementId: "G-05SZGTC4KJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    document.addEventListener('click', (e) => {
+      const cta = e.target.closest('[data-section]');
+      if (cta) {
+        logEvent(analytics, 'cta_click', { section: cta.dataset.section });
+      }
+    });
+  </script>
+</head>
+
+<body class="bg-[var(--color-bg)]" :class="{ dark: dark }">
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav x-data="stickyNav" x-init="init()"
+       class="fixed top-0 inset-x-0 z-50 bg-[var(--color-surface)] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 font-bold text-[var(--color-text-primary)]">
+        <img src="images/icon.png" alt="" class="w-6 h-6" aria-hidden="true" />
+        Time Zone Buddy
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--color-text-secondary)]">
+        <a href="index.html#features" class="hover:text-[var(--color-brand)] transition-colors">Features</a>
+        <a href="index.html#plans"    class="hover:text-[var(--color-brand)] transition-colors">Plans</a>
+        <a href="index.html#faq"      class="hover:text-[var(--color-brand)] transition-colors">FAQ</a>
+        <a href="support.html"        class="hover:text-[var(--color-brand)] transition-colors">Support</a>
+      </div>
+
+      <!-- Right controls -->
+      <div class="flex items-center gap-2">
+        <!-- Dark/light toggle -->
+        <button @click="toggle()" aria-label="Toggle dark mode"
+                class="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors">
+          <svg x-show="!dark" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+          <svg x-show="dark"  class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
+        <!-- CTA -->
+        <a href="https://apps.apple.com/us/app/time-zone-buddy/id6760805989?utm_source=website&utm_medium=cta_button&utm_campaign=ios_widgets_page"
+           data-section="nav"
+           class="hidden md:inline-flex items-center gap-2 bg-[var(--color-brand)] text-white font-semibold text-sm px-4 py-2 rounded-xl hover:bg-[var(--color-brand-hover)] transition-colors">
+          Download Free
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button @click="menuOpen = !menuOpen" class="md:hidden p-2 text-[var(--color-text-muted)]" aria-label="Toggle menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path x-show="!menuOpen" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            <path x-show="menuOpen"  stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu dropdown -->
+    <div x-show="menuOpen" x-transition class="md:hidden bg-[var(--color-surface)] border-t border-[var(--color-border)] px-4 pb-4">
+      <a href="index.html#features" @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">Features</a>
+      <a href="index.html#plans"    @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">Plans</a>
+      <a href="index.html#faq"      @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">FAQ</a>
+      <a href="support.html"        @click="menuOpen=false" class="block py-3 text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">Support</a>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+
+    <!-- ── Page Hero ───────────────────────────────────────── -->
+    <div class="bg-[var(--color-surface)] border-b border-[var(--color-border)] py-12 text-center">
+      <nav aria-label="Breadcrumb" class="text-sm text-[var(--color-text-muted)] mb-4">
+        <a href="index.html" class="hover:text-[var(--color-brand)]">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-[var(--color-text-primary)]">iOS Widgets</span>
+      </nav>
+      <h1 class="text-4xl font-extrabold text-[var(--color-text-primary)]">Time Zone Widgets for iPhone &amp; iPad</h1>
+      <p class="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto px-4">
+        Keep the world's time at your fingertips — without opening an app. Daylight-aware Home Screen and Lock Screen widgets, free to start.
+      </p>
+      <div class="mt-8">
+        <a href="https://apps.apple.com/us/app/time-zone-buddy/id6760805989?utm_source=website&utm_medium=cta_button&utm_campaign=ios_widgets_page"
+           data-section="hero"
+           class="inline-flex items-center">
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+               alt="Download on the App Store" class="h-12 dark:hidden" />
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg"
+               alt="" class="h-12 hidden dark:block" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+
+    <!-- ── What is a time zone widget ──────────────────────── -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6">What is a time zone widget for iPhone?</h2>
+      <p class="text-base text-[var(--color-text-secondary)] mb-4">
+        An iPhone time zone widget lets you see the current time in any city or country directly on your Home Screen or Lock Screen — no tapping, no app switching. Whether you work with a team in London, family in Tokyo, or clients in New York, a time zone widget puts their local time one glance away.
+      </p>
+      <p class="text-base text-[var(--color-text-secondary)]">
+        Time Zone Buddy goes beyond a plain clock widget. Each iOS widget uses the same aurora-inspired daylight shading as the app itself — shifting from warm amber at sunrise to vivid cerulean at midday to deep navy at night — so you can instantly see not just the time, but whether someone is awake, working, or asleep.
+      </p>
+    </section>
+
+    <!-- ── Widget variants ──────────────────────────────────── -->
+    <section class="bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-10 text-center">
+          Every iOS widget, explained
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Single Zone Small -->
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🟦</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Single Zone — Small <span class="text-xs font-normal text-green-600 dark:text-green-400 ml-1">Free</span></h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                The compact Home Screen widget. Shows your chosen city's live local time with the full aurora daylight shading — a real-time colour that tells you at a glance whether it's morning, midday, or night there. Tap to open the zone directly in the app.
+              </p>
+            </div>
+          </div>
+
+          <!-- Single Zone Medium -->
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🟩</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Single Zone — Medium <span class="text-xs font-normal text-green-600 dark:text-green-400 ml-1">Free</span></h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                The wider Home Screen widget adds a full-day timeline arc and a work-hours status line — showing you the next work-start or work-finish time for that zone. Ideal for your primary remote colleague or client city.
+              </p>
+            </div>
+          </div>
+
+          <!-- Lock Screen Circular -->
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🔵</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Lock Screen — Circular <span class="text-xs font-normal text-[var(--color-brand)] ml-1">Lifetime &amp; Plus</span></h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                A circular Lock Screen accessory widget showing the current time for any saved city. Sits neatly alongside your other Lock Screen complications. Glance at your iPhone and instantly know what time it is on the other side of the world.
+              </p>
+            </div>
+          </div>
+
+          <!-- Lock Screen Inline -->
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">➖</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Lock Screen — Inline <span class="text-xs font-normal text-[var(--color-brand)] ml-1">Lifetime &amp; Plus</span></h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                A compact inline Lock Screen widget that displays the city name and current local time as a single line — perfect for minimal Lock Screen layouts. Shows at a glance whether your contact is in day or night hours.
+              </p>
+            </div>
+          </div>
+
+          <!-- Lock Screen Rectangular -->
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">▬</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Lock Screen — Rectangular <span class="text-xs font-normal text-[var(--color-brand)] ml-1">Lifetime &amp; Plus</span></h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                The larger rectangular Lock Screen widget gives you more detail — city name, local time, and UTC offset — all without unlocking your iPhone. Great for travellers who need a second time zone always visible.
+              </p>
+            </div>
+          </div>
+
+          <!-- Meeting Hub -->
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">📅</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Meeting Hub — Small, Medium &amp; Large <span class="text-xs font-normal text-[var(--color-brand)] ml-1">Lifetime &amp; Plus</span></h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                The most powerful time zone widget for remote teams. Meeting Hub shows who across all your tracked zones is currently in work hours, who's coming online soon, and who's off duty — updated live. The medium and large sizes list each zone's name and current local time. Tap to open the Meeting Overlap finder instantly.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── How to add ────────────────────────────────────────── -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6">
+        How to add a time zone widget to your iPhone
+      </h2>
+      <ol class="space-y-4 text-base text-[var(--color-text-secondary)] list-none">
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--color-brand)] text-white flex items-center justify-center text-sm font-bold">1</span>
+          <span><strong class="text-[var(--color-text-primary)]">Download Time Zone Buddy</strong> from the App Store and add the time zones you want to track.</span>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--color-brand)] text-white flex items-center justify-center text-sm font-bold">2</span>
+          <span><strong class="text-[var(--color-text-primary)]">Long-press your Home Screen</strong> until the icons jiggle, then tap the <strong class="text-[var(--color-text-primary)]">+</strong> button in the top-left corner.</span>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--color-brand)] text-white flex items-center justify-center text-sm font-bold">3</span>
+          <span><strong class="text-[var(--color-text-primary)]">Search for "Time Zone Buddy"</strong> in the widget gallery and select it.</span>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--color-brand)] text-white flex items-center justify-center text-sm font-bold">4</span>
+          <span><strong class="text-[var(--color-text-primary)]">Choose your widget size</strong> — small or medium for Single Zone (free), or Meeting Hub for a team overview (Lifetime &amp; Plus). Tap <em>Add Widget</em>.</span>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--color-brand)] text-white flex items-center justify-center text-sm font-bold">5</span>
+          <span><strong class="text-[var(--color-text-primary)]">Tap the widget to configure</strong> which saved city or zone it displays, then tap Done. That's it — your time zone widget is live.</span>
+        </li>
+      </ol>
+      <p class="mt-6 text-sm text-[var(--color-text-secondary)]">
+        For Lock Screen widgets: swipe to the Lock Screen, long-press, tap <em>Customise</em>, then add a Time Zone Buddy Lock Screen widget in the same way. Lock Screen widgets require Lifetime or Plus.
+      </p>
+    </section>
+
+    <!-- ── Widget FAQ ────────────────────────────────────────── -->
+    <section class="bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-8 text-center">
+          Widget questions, answered
+        </h2>
+
+        <div x-data="{ open: null }" class="space-y-3">
+
+          <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
+            <button @click="open = open === 0 ? null : 0" :aria-expanded="open === 0 ? 'true' : 'false'" aria-controls="wfaq-0"
+                    class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
+              <span>Are the time zone widgets really free?</span>
+              <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 0 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="wfaq-0" x-show="open === 0" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
+              Yes — the Single Zone widget (small and medium Home Screen sizes) is completely free. No purchase required. Lock Screen widgets (circular, inline, rectangular) and the Meeting Hub widget require Lifetime or Plus.
+            </div>
+          </div>
+
+          <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
+            <button @click="open = open === 1 ? null : 1" :aria-expanded="open === 1 ? 'true' : 'false'" aria-controls="wfaq-1"
+                    class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
+              <span>Do the widgets update automatically?</span>
+              <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 1 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="wfaq-1" x-show="open === 1" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
+              Yes. iOS refreshes WidgetKit widgets automatically. The Single Zone and Lock Screen widgets stay accurate to the minute. The Meeting Hub widget updates regularly so the work-hours status stays current.
+            </div>
+          </div>
+
+          <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
+            <button @click="open = open === 2 ? null : 2" :aria-expanded="open === 2 ? 'true' : 'false'" aria-controls="wfaq-2"
+                    class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
+              <span>Do the widgets collect any data?</span>
+              <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 2 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="wfaq-2" x-show="open === 2" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
+              No. All widgets read your saved zones directly through a private App Group — nothing leaves your device. Time Zone Buddy has no servers, no accounts, and sends no data anywhere.
+            </div>
+          </div>
+
+          <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
+            <button @click="open = open === 3 ? null : 3" :aria-expanded="open === 3 ? 'true' : 'false'" aria-controls="wfaq-3"
+                    class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
+              <span>Which iPhone and iOS versions support the widgets?</span>
+              <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 3 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="wfaq-3" x-show="open === 3" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
+              Time Zone Buddy requires iOS 16 or later (or iPadOS 16 or later). Home Screen widgets work on any iPhone or iPad running iOS/iPadOS 16+. Lock Screen widgets require iOS 16+ (iPhone only). The app is optimised for the latest iOS and iPadOS releases.
+            </div>
+          </div>
+
+          <div class="border border-[var(--color-border)] rounded-xl overflow-hidden">
+            <button @click="open = open === 4 ? null : 4" :aria-expanded="open === 4 ? 'true' : 'false'" aria-controls="wfaq-4"
+                    class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] transition-colors">
+              <span>Can I show multiple time zones in one widget?</span>
+              <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 4 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="wfaq-4" x-show="open === 4" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
+              The Meeting Hub widget (Lifetime &amp; Plus) shows all your tracked zones at once — including who's in work hours right now, who's coming online soon, and who's off duty. The Single Zone and Lock Screen widgets each show one city; you can add multiple widgets to your Home Screen to cover multiple zones.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Cross-links ───────────────────────────────────────── -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6">
+        More from Time Zone Buddy
+      </h2>
+      <p class="text-base text-[var(--color-text-secondary)] mb-4">
+        The iOS widgets are just one part of Time Zone Buddy. The full app includes a <a href="world-clock-app.html" class="text-[var(--color-brand)] hover:underline">world clock</a> with aurora-inspired zone cards, a <a href="time-zone-converter.html" class="text-[var(--color-brand)] hover:underline">time zone converter</a> and meeting planner, DST push notifications, and much more — all with zero data collection.
+      </p>
+      <p class="text-base text-[var(--color-text-secondary)]">
+        <a href="index.html#features" class="text-[var(--color-brand)] hover:underline">See all features</a> or <a href="index.html#plans" class="text-[var(--color-brand)] hover:underline">explore pricing</a>.
+      </p>
+    </section>
+
+    <!-- ── CTA ─────────────────────────────────────────────── -->
+    <section class="final-cta bg-aurora py-16 text-center text-white">
+      <img src="images/icon.png" alt="" class="w-20 h-20 mx-auto mb-6 rounded-2xl" aria-hidden="true" />
+      <h2 class="text-2xl md:text-3xl font-extrabold">Add a time zone widget. Free.</h2>
+      <p class="mt-3 text-white/70 text-base">Download Time Zone Buddy for iPhone and iPad.</p>
+      <div class="mt-8">
+        <a href="https://apps.apple.com/us/app/time-zone-buddy/id6760805989?utm_source=website&utm_medium=cta_button&utm_campaign=ios_widgets_page"
+           data-section="final_cta"
+           class="inline-flex items-center">
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+               alt="Download on the App Store" class="h-14 dark:hidden" />
+          <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg"
+               alt="" class="h-14 hidden dark:block" aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer class="bg-[var(--color-surface)] border-t border-[var(--color-border)] py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--color-text-muted)]">
+      <div class="flex items-center gap-2">
+        <img src="images/icon.png" alt="" class="w-5 h-5" aria-hidden="true" />
+        <span class="font-semibold text-[var(--color-text-secondary)]">Time Zone Buddy</span>
+      </div>
+      <nav class="flex flex-wrap justify-center gap-6" aria-label="Footer">
+        <a href="index.html"               class="hover:text-[var(--color-brand)] transition-colors">Home</a>
+        <a href="index.html#features"      class="hover:text-[var(--color-brand)] transition-colors">Features</a>
+        <a href="index.html#plans"         class="hover:text-[var(--color-brand)] transition-colors">Plans</a>
+        <a href="support.html"             class="hover:text-[var(--color-brand)] transition-colors">Support</a>
+        <a href="privacy-policy.html"      class="hover:text-[var(--color-brand)] transition-colors">Privacy Policy</a>
+        <a href="world-clock-app.html"     class="hover:text-[var(--color-brand)] transition-colors">World Clock App</a>
+        <a href="time-zone-converter.html" class="hover:text-[var(--color-brand)] transition-colors">Time Zone Converter</a>
+      </nav>
+      <p>© 2026 Scott Breen</p>
+    </div>
+  </footer>
+
+</body>
+</html>
