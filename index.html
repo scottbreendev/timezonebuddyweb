@@ -30,6 +30,7 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Tailwind Play CDN -->
@@ -54,6 +55,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+  <!-- App JS -->
+  <script defer src="js/app.js"></script>
+
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
@@ -70,9 +74,6 @@
       }
     })();
   </script>
-
-  <!-- App JS -->
-  <script src="js/app.js"></script>
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -108,7 +109,7 @@
         {
           "@type": "Question",
           "name": "What does the free version include?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Up to 5 time zones, the full aurora zone card display (including daylight, sunrise/sunset, and work hours), the time-shift planner, and the free Single Zone Home Screen widget (small and medium). Ads are shown on the home and detail screens. Groups, Meeting Overlap, Lock Screen and Meeting Hub widgets, DST alerts, public holidays, notifications, and exports require Lifetime or Plus." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Up to 5 time zones, the full aurora zone card display (including daylight, sunrise/sunset, and work hours), the time-shift planner, the free Single Zone Home Screen widget (small and medium), and the free circular Lock Screen clock. Ads are shown on the home and detail screens. Groups, Meeting Overlap, the inline and rectangular Lock Screen widgets and the Meeting Hub widget, DST alerts, public holidays, notifications, and exports require Lifetime or Plus." }
         },
         {
           "@type": "Question",
@@ -201,10 +202,12 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
+    const PAGE_SOURCE = 'home';
+
     document.addEventListener('click', (e) => {
       const cta = e.target.closest('[data-section]');
       if (cta) {
-        logEvent(analytics, 'cta_click', { section: cta.dataset.section });
+        logEvent(analytics, 'cta_click', { section: cta.dataset.section, source: PAGE_SOURCE });
       }
     });
   </script>

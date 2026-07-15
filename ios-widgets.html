@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Time Zone Widget for iPhone &amp; iPad — Time Zone Buddy</title>
-  <meta name="description" content="Time Zone Buddy brings beautiful, daylight-aware time zone widgets to your iPhone Home Screen and Lock Screen. Free Single Zone widget, plus Lock Screen clocks and Meeting Hub widget with Lifetime or Plus." />
+  <meta name="description" content="Time Zone Buddy brings beautiful, daylight-aware time zone widgets to your iPhone Home Screen and Lock Screen. Free Single Zone widget and free circular Lock Screen clock; inline/rectangular Lock Screen and Meeting Hub widgets with Lifetime or Plus." />
   <meta name="keywords" content="time zone widget iPhone, time zone widget iOS, world clock widget iPhone, Home Screen time zone widget, Lock Screen clock widget iPhone, iPad time zone widget, iOS 16 widget time zone, meeting hub widget" />
 
   <!-- Favicon -->
@@ -13,7 +13,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Time Zone Widget for iPhone &amp; iPad — Time Zone Buddy" />
-  <meta property="og:description" content="Beautiful, daylight-aware time zone widgets for your iPhone Home Screen and Lock Screen. Free to start — upgrade for Lock Screen clocks and the Meeting Hub widget." />
+  <meta property="og:description" content="Beautiful, daylight-aware time zone widgets for your iPhone Home Screen and Lock Screen. Free to start — including a free circular Lock Screen clock. Upgrade for the inline and rectangular Lock Screen and Meeting Hub widgets." />
   <meta property="og:image" content="https://tzbuddy.app/images/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -30,6 +30,7 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Tailwind Play CDN -->
@@ -42,12 +43,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+  <!-- App JS -->
+  <script defer src="js/app.js"></script>
+
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css" />
-  <script src="js/app.js"></script>
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -60,7 +63,7 @@
     "downloadUrl": "https://apps.apple.com/us/app/time-zone-buddy/id6760805989",
     "operatingSystem": "iOS 16+, iPadOS 16+",
     "applicationCategory": ["ProductivityApplication", "UtilitiesApplication"],
-    "description": "Time Zone Buddy brings beautiful, daylight-aware time zone widgets to your iPhone and iPad Home Screen and Lock Screen. The free Single Zone widget shows any city's live time with aurora shading; Lifetime and Plus unlock Lock Screen clocks and the Meeting Hub widget.",
+    "description": "Time Zone Buddy brings beautiful, daylight-aware time zone widgets to your iPhone and iPad Home Screen and Lock Screen. The free Single Zone widget and free circular Lock Screen clock show any city's live time with aurora shading; Lifetime and Plus unlock the inline and rectangular Lock Screen and Meeting Hub widgets.",
     "featureList": "Single Zone Home Screen widget (small & medium), Lock Screen clock widgets (circular, inline, rectangular), Meeting Hub widget (small, medium, large), daylight-aware shading, work-hours status, day timeline, on-device privacy",
     "author": { "@type": "Person", "name": "Scott Breen" },
     "offers": [
@@ -89,10 +92,12 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
+    const PAGE_SOURCE = 'ios_widgets';
+
     document.addEventListener('click', (e) => {
       const cta = e.target.closest('[data-section]');
       if (cta) {
-        logEvent(analytics, 'cta_click', { section: cta.dataset.section });
+        logEvent(analytics, 'cta_click', { section: cta.dataset.section, source: PAGE_SOURCE });
       }
     });
   </script>
@@ -179,6 +184,206 @@
       </div>
     </div>
 
+    <!-- ── Real widget screenshots ─────────────────────────── -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-4">
+      <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-3 text-center">See the widgets on a real iPhone</h2>
+      <p class="text-base text-[var(--color-text-secondary)] max-w-2xl mx-auto text-center mb-10">
+        Actual Home Screen and Lock Screen captures — daylight-aware shading and all. This is exactly how Time Zone Buddy looks on your iPhone.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 items-start">
+        <figure class="text-center">
+          <img src="images/widget-home.webp" width="760" height="1267" loading="lazy"
+               alt="Time Zone Buddy Home Screen widgets on iPhone showing Single Zone and Multi-City time zone widgets with live daylight shading"
+               class="w-full rounded-2xl border border-[var(--color-border)] shadow-lg" />
+          <figcaption class="mt-3 text-sm text-[var(--color-text-secondary)]">Home Screen — Single Zone &amp; Multi-City</figcaption>
+        </figure>
+        <figure class="text-center">
+          <img src="images/widget-meeting.webp" width="760" height="1267" loading="lazy"
+               alt="Time Zone Buddy Meeting Hub widget on iPhone Home Screen showing who is working now across time zones"
+               class="w-full rounded-2xl border border-[var(--color-border)] shadow-lg" />
+          <figcaption class="mt-3 text-sm text-[var(--color-text-secondary)]">Meeting Hub — who's working now</figcaption>
+        </figure>
+        <figure class="text-center">
+          <img src="images/widget-lock.webp" width="760" height="1267" loading="lazy"
+               alt="Time Zone Buddy Lock Screen time zone widgets on iPhone showing a city clock beneath the Lock Screen time"
+               class="w-full rounded-2xl border border-[var(--color-border)] shadow-lg" />
+          <figcaption class="mt-3 text-sm text-[var(--color-text-secondary)]">Lock Screen — glanceable city clocks</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ── Every widget, up close ───────────────────── -->
+    <section class="bg-[var(--color-surface)] border-y border-[var(--color-border)] py-16">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-3 text-center">Every widget, up close</h2>
+        <p class="text-base text-[var(--color-text-secondary)] max-w-2xl mx-auto text-center mb-12">
+          Every size, straight from the app — each one uses the same live daylight shading, so a glance tells you day, night, or working hours.
+        </p>
+
+        <!-- Home Screen -->
+        <h3 class="flex items-center gap-2 text-lg font-bold text-[var(--color-text-primary)] mb-5">
+          <span aria-hidden="true">🏠</span> Home Screen
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 mb-12">
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-singlezone-small.webp" width="474" height="474" loading="lazy"
+                   alt="Single Zone small time zone widget showing New York local time with daylight timeline"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Single Zone · Small</span>
+              <span class="text-xs text-green-600 dark:text-green-400">Free</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-singlezone-medium.webp" width="1014" height="474" loading="lazy"
+                   alt="Single Zone medium time zone widget with day timeline and work-hours status"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Single Zone · Medium</span>
+              <span class="text-xs text-green-600 dark:text-green-400">Free</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-multicity-small.webp" width="474" height="474" loading="lazy"
+                   alt="Multi-City small time zone widget showing two cities with daylight-tinted tiles"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Multi-City · Small</span>
+              <span class="text-xs text-green-600 dark:text-green-400">Free</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-multicity-medium.webp" width="1014" height="474" loading="lazy"
+                   alt="Multi-City medium time zone widget showing four cities with daylight-tinted tiles"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Multi-City · Medium</span>
+              <span class="text-xs text-[var(--color-brand)]">Lifetime &amp; Plus</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-multicity-large.webp" width="1014" height="1062" loading="lazy"
+                   alt="Multi-City large time zone widget showing six cities with daylight-tinted tiles"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Multi-City · Large</span>
+              <span class="text-xs text-[var(--color-brand)]">Lifetime &amp; Plus</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-meeting-small.webp" width="474" height="474" loading="lazy"
+                   alt="Meeting Hub small widget showing how many people are working now"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Meeting Hub · Small</span>
+              <span class="text-xs text-[var(--color-brand)]">Lifetime &amp; Plus</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-meeting-medium.webp" width="1014" height="474" loading="lazy"
+                   alt="Meeting Hub medium widget listing who is working now and coming online soon"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Meeting Hub · Medium</span>
+              <span class="text-xs text-[var(--color-brand)]">Lifetime &amp; Plus</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-meeting-large.webp" width="1014" height="1062" loading="lazy"
+                   alt="Meeting Hub large widget with working now, coming online soon, and off duty across time zones"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Meeting Hub · Large</span>
+              <span class="text-xs text-[var(--color-brand)]">Lifetime &amp; Plus</span>
+            </figcaption>
+          </figure>
+
+        </div>
+
+        <!-- Lock Screen -->
+        <h3 class="flex items-center gap-2 text-lg font-bold text-[var(--color-text-primary)] mb-5">
+          <span aria-hidden="true">🔒</span> Lock Screen
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 mb-12">
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-lock-rectangular.webp" width="1020" height="336" loading="lazy"
+                   alt="Rectangular Lock Screen time zone widget showing city, local time and date"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Rectangular</span>
+              <span class="text-xs text-[var(--color-brand)]">Lifetime &amp; Plus</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-lock-circular.webp" width="336" height="336" loading="lazy"
+                   alt="Circular Lock Screen time zone widget showing a city clock complication"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Circular</span>
+              <span class="text-xs text-green-600 dark:text-green-400">Free</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-4 flex flex-col items-center text-center">
+            <div class="h-52 w-full flex items-center justify-center mb-3">
+              <img src="images/widget-lock-inline.webp" width="810" height="222" loading="lazy"
+                   alt="Inline Lock Screen time zone widget showing city name and time on one line"
+                   class="max-h-full max-w-full w-auto rounded-xl" />
+            </div>
+            <figcaption>
+              <span class="block font-semibold text-[var(--color-text-primary)] text-sm">Inline</span>
+              <span class="text-xs text-[var(--color-brand)]">Lifetime &amp; Plus</span>
+            </figcaption>
+          </figure>
+
+        </div>
+
+        <!-- StandBy -->
+        <h3 class="flex items-center gap-2 text-lg font-bold text-[var(--color-text-primary)] mb-5">
+          <span aria-hidden="true">🌙</span> StandBy
+        </h3>
+        <figure class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl p-6 flex flex-col items-center text-center max-w-xl mx-auto">
+          <img src="images/widget-standby.webp" width="1122" height="618" loading="lazy"
+               alt="StandBy bedside mode showing a Single Zone widget and a Multi-City widget side by side on a black screen"
+               class="w-full max-w-md rounded-xl mb-4" />
+          <figcaption>
+            <span class="block font-semibold text-[var(--color-text-primary)]">Bedside clock</span>
+            <span class="text-sm text-[var(--color-text-secondary)]">Turn your iPhone on its side while charging — Single Zone, Multi-City, or any small widget works in StandBy. <span class="text-green-600 dark:text-green-400 font-medium">Free</span></span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- ── What is a time zone widget ──────────────────────── -->
     <section class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6">What is a time zone widget for iPhone?</h2>
@@ -220,13 +425,24 @@
             </div>
           </div>
 
+          <!-- Multi-City -->
+          <div class="flex gap-4">
+            <div class="text-3xl flex-shrink-0">🌍</div>
+            <div>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Multi-City — Small, Medium &amp; Large <span class="text-xs font-normal text-green-600 dark:text-green-400 ml-1">Free</span> <span class="text-xs font-normal text-[var(--color-brand)] ml-1">· Plus for 4–6 cities</span></h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                A wall of clocks for every city you track. The small size shows two cities free; medium and large step up to four and six, each tile tinted by its own live daylight phase so you can read the whole world at a glance. Large adds an upcoming public-holiday chip on paid tiers.
+              </p>
+            </div>
+          </div>
+
           <!-- Lock Screen Circular -->
           <div class="flex gap-4">
             <div class="text-3xl flex-shrink-0">🔵</div>
             <div>
-              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Lock Screen — Circular <span class="text-xs font-normal text-[var(--color-brand)] ml-1">Lifetime &amp; Plus</span></h3>
+              <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Lock Screen — Circular <span class="text-xs font-normal text-green-600 dark:text-green-400 ml-1">Free</span></h3>
               <p class="text-sm text-[var(--color-text-secondary)]">
-                A circular Lock Screen accessory widget showing the current time for any saved city. Sits neatly alongside your other Lock Screen complications. Glance at your iPhone and instantly know what time it is on the other side of the world.
+                The circular Lock Screen clock is free on every tier. It shows the current time for any saved city, sitting neatly alongside your other Lock Screen complications — glance at your iPhone and instantly know what time it is on the other side of the world.
               </p>
             </div>
           </div>
@@ -296,7 +512,7 @@
         </li>
       </ol>
       <p class="mt-6 text-sm text-[var(--color-text-secondary)]">
-        For Lock Screen widgets: swipe to the Lock Screen, long-press, tap <em>Customise</em>, then add a Time Zone Buddy Lock Screen widget in the same way. Lock Screen widgets require Lifetime or Plus.
+        For Lock Screen widgets: swipe to the Lock Screen, long-press, tap <em>Customise</em>, then add a Time Zone Buddy Lock Screen widget in the same way. The circular Lock Screen clock is free; the inline and rectangular formats require Lifetime or Plus.
       </p>
     </section>
 
@@ -316,7 +532,7 @@
               <svg class="w-4 h-4 text-[var(--color-text-muted)] transition-transform" :class="open === 0 ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <div id="wfaq-0" x-show="open === 0" x-transition class="px-5 pb-4 text-sm text-[var(--color-text-secondary)]">
-              Yes — the Single Zone widget (small and medium Home Screen sizes) is completely free. No purchase required. Lock Screen widgets (circular, inline, rectangular) and the Meeting Hub widget require Lifetime or Plus.
+              Yes — the Single Zone widget (small and medium Home Screen sizes) and the circular Lock Screen clock are completely free. No purchase required. The inline and rectangular Lock Screen widgets and the Meeting Hub widget require Lifetime or Plus.
             </div>
           </div>
 
