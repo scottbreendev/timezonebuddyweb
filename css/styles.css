@@ -65,6 +65,23 @@ body {
 
 .device-frame-sm { --frame-width: 200px; }
 
+/* Soft blurred halo behind device frames. The blurred gradient is promoted to
+   its own GPU layer (translateZ + will-change) so it is rasterised once at full
+   quality on load and is NOT re-rasterised (which caused visible banding that
+   "sharpened" a moment later) while a sibling frame plays its GSAP entrance. */
+.device-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 2.5rem;
+  pointer-events: none;
+  opacity: 0.5;
+  background: linear-gradient(135deg, #2ECAD4, #2E88D4);
+  filter: blur(64px);
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
 .device-screen-clip {
   position: absolute;
   top: 2.233%;
@@ -152,6 +169,102 @@ body {
   background: linear-gradient(var(--gradient-hero));
 }
 
+/* ── Cookie Consent Banner ────────────────────────────────── */
+
+.tzb-cc {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  width: min(680px, calc(100% - 2rem));
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.18);
+  padding: 1rem 1.25rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.tzb-cc__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .tzb-cc__inner { flex-direction: row; align-items: center; }
+}
+
+.tzb-cc__text { margin: 0; flex: 1; }
+.tzb-cc__text strong { color: var(--color-text-primary); }
+.tzb-cc__text a { color: var(--color-brand); text-decoration: underline; }
+
+.tzb-cc__actions {
+  display: flex;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+.tzb-cc__btn {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.tzb-cc__btn--solid { background-color: var(--color-brand); color: #FFFFFF; }
+.tzb-cc__btn--solid:hover { background-color: var(--color-brand-hover); }
+
+.tzb-cc__btn--ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
+}
+.tzb-cc__btn--ghost:hover { border-color: var(--color-brand); color: var(--color-brand); }
+
 .bg-aurora {
   background: linear-gradient(var(--gradient-aurora));
 }
+
+/* ── Alpine.js ────────────────────────────────────────────── */
+
+[x-cloak] { display: none !important; }
+
+/* ── Feature icon tiles ───────────────────────────────────── */
+/* Used for features that have no dedicated screenshot (Siri, Apple platforms). */
+
+.feature-icon-tile {
+  width: 200px;
+  height: 200px;
+  border-radius: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  flex-shrink: 0;
+  box-shadow: 0 24px 48px rgb(0 0 0 / 0.28);
+}
+
+@media (min-width: 768px) {
+  .feature-icon-tile { width: 220px; height: 220px; }
+}
+
+.feature-icon-tile--siri  { background: linear-gradient(135deg, #1A0D40, #4A2EAA, #8E5BFF); }
+.feature-icon-tile--apple { background: linear-gradient(135deg, #0A1E40, #1A4A7A, #2ECAD4); }
+
+/* ── Hero device frame (larger than the section frames) ───── */
+
+.device-frame-hero { --frame-width: 240px; }
+
+/* ── Pricing ──────────────────────────────────────────────── */
+
+.plan-card-plus { background: linear-gradient(var(--gradient-plus)); }
+.btn-lifetime   { background: linear-gradient(var(--gradient-lifetime)); }

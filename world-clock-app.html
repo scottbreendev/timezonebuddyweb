@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Apple Smart App Banner: shows the App Store "GET" banner at the top of the page in iOS Safari -->
+  <meta name="apple-itunes-app" content="app-id=6760805989" />
   <title>World Clock App for iPhone &amp; iPad — Time Zone Buddy</title>
-  <meta name="description" content="Time Zone Buddy is the best free world clock app for iPhone and iPad. Track multiple time zones, see daylight hours in real time, plan meetings across the globe, and get DST alerts — all with zero data collection." />
+  <meta name="description" content="Time Zone Buddy is the best free world clock app for iPhone and iPad. Track multiple time zones, see daylight hours in real time, plan meetings across the globe, and get DST alerts — with no personal data collected." />
   <meta name="keywords" content="world clock app, world clock iPhone, world clock iPad, multiple time zones iPhone, best world clock app iOS, free world clock app, world time zones app" />
 
   <!-- Favicon -->
@@ -63,7 +65,7 @@
     "downloadUrl": "https://apps.apple.com/us/app/time-zone-buddy/id6760805989",
     "operatingSystem": "iOS 16+, iPadOS 16+",
     "applicationCategory": ["ProductivityApplication", "UtilitiesApplication"],
-    "description": "Time Zone Buddy is the world clock app for iPhone and iPad. Track multiple time zones with daylight-aware zone cards, plan meetings across the globe, and get DST alerts — all with zero data collection.",
+    "description": "Time Zone Buddy is the world clock app for iPhone and iPad. Track multiple time zones with daylight-aware zone cards, plan meetings across the globe, and get DST alerts — with no personal data collected.",
     "author": { "@type": "Person", "name": "Scott Breen" },
     "offers": [
       { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "name": "Free" },
@@ -73,33 +75,9 @@
   }
   </script>
 
-  <!-- Firebase Analytics -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCn7GMc5UZO7iKN3OsOkC23iQB7Zp9PNtY",
-      authDomain: "time-zone-buddy-pinecode.firebaseapp.com",
-      projectId: "time-zone-buddy-pinecode",
-      storageBucket: "time-zone-buddy-pinecode.firebasestorage.app",
-      messagingSenderId: "808205346526",
-      appId: "1:808205346526:web:3aef061bd46ed801ec844f",
-      measurementId: "G-05SZGTC4KJ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-
-    const PAGE_SOURCE = 'world_clock_app';
-
-    document.addEventListener('click', (e) => {
-      const cta = e.target.closest('[data-section]');
-      if (cta) {
-        logEvent(analytics, 'cta_click', { section: cta.dataset.section, source: PAGE_SOURCE });
-      }
-    });
-  </script>
+  <!-- Firebase Analytics (consent-gated — loads only after opt-in; see js/analytics.js) -->
+  <script>window.TZB_PAGE_SOURCE = 'world_clock_app';</script>
+  <script defer src="js/analytics.js"></script>
 </head>
 
 <body class="bg-[var(--color-bg)]" :class="{ dark: dark }">
@@ -179,6 +157,17 @@
                alt="" class="h-12 hidden dark:block" aria-hidden="true" />
         </a>
       </div>
+      <div class="mt-12 flex justify-center">
+        <div class="relative">
+          <div class="device-glow"></div>
+          <div class="device-frame device-frame-sm relative">
+            <div class="device-screen-clip">
+              <img class="device-screenshot" src="images/ss-home.webp" alt="Time Zone Buddy world clock home screen with daylight-aware zone cards for cities around the world" loading="lazy" />
+            </div>
+            <img class="device-overlay" src="images/device-frame.png" alt="" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ── What is a world clock app ───────────────────────── -->
@@ -215,7 +204,7 @@
             <div>
               <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Daylight at a glance</h3>
               <p class="text-sm text-[var(--color-text-secondary)]">
-                Aurora zone cards shift in colour from warm amber at sunrise to vivid cerulean at midday to deep navy at night — so you can see daylight conditions for every tracked location in your world clock instantly.
+                Daylight-aware zone cards shift in colour from warm amber at sunrise to vivid cerulean at midday to deep navy at night — so you can see daylight conditions for every tracked location in your world clock instantly.
               </p>
             </div>
           </div>
@@ -265,7 +254,7 @@
             <div>
               <h3 class="font-bold text-[var(--color-text-primary)] mb-1">Privacy first</h3>
               <p class="text-sm text-[var(--color-text-secondary)]">
-                Unlike many world clock apps that track your usage, Time Zone Buddy collects zero data. No account. No analytics. Everything stays on your device.
+                Unlike many world clock apps that track and sell your usage, Time Zone Buddy keeps your data on your device — no account, and only anonymous, aggregate analytics that&#39;s never linked to you or sold.
               </p>
             </div>
           </div>
@@ -309,22 +298,55 @@
   </main>
 
   <!-- ── Footer ────────────────────────────────────────────── -->
-  <footer class="bg-[var(--color-surface)] border-t border-[var(--color-border)] py-10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--color-text-muted)]">
-      <div class="flex items-center gap-2">
-        <img src="images/icon.png" alt="" class="w-5 h-5" aria-hidden="true" />
-        <span class="font-semibold text-[var(--color-text-secondary)]">Time Zone Buddy</span>
+  <footer class="bg-[var(--color-surface)] border-t border-[var(--color-border)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <div class="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2">
+            <img src="images/icon.png" alt="" class="w-7 h-7 rounded-lg" aria-hidden="true" />
+            <span class="font-bold text-[var(--color-text-primary)]">Time Zone Buddy</span>
+          </div>
+          <p class="mt-3 text-sm text-[var(--color-text-muted)] max-w-xs">Know the time. Everywhere. The friendly world clock &amp; meeting planner for iPhone, iPad &amp; Mac.</p>
+        </div>
+
+        <!-- Product -->
+        <nav aria-label="Product" class="text-sm">
+          <h2 class="font-semibold text-[var(--color-text-secondary)] mb-3">Product</h2>
+          <ul class="space-y-2 text-[var(--color-text-muted)]">
+            <li><a href="index.html"          class="hover:text-[var(--color-brand)] transition-colors">Home</a></li>
+            <li><a href="index.html#features" class="hover:text-[var(--color-brand)] transition-colors">Features</a></li>
+            <li><a href="index.html#plans"    class="hover:text-[var(--color-brand)] transition-colors">Plans</a></li>
+          </ul>
+        </nav>
+
+        <!-- Guides -->
+        <nav aria-label="Guides" class="text-sm">
+          <h2 class="font-semibold text-[var(--color-text-secondary)] mb-3">Guides</h2>
+          <ul class="space-y-2 text-[var(--color-text-muted)]">
+            <li><a href="world-clock-app.html"     class="hover:text-[var(--color-brand)] transition-colors">World Clock App</a></li>
+            <li><a href="time-zone-converter.html" class="hover:text-[var(--color-brand)] transition-colors">Time Zone Converter</a></li>
+            <li><a href="ios-widgets.html"         class="hover:text-[var(--color-brand)] transition-colors">iOS Widgets</a></li>
+          </ul>
+        </nav>
+
+        <!-- Support & Legal -->
+        <nav aria-label="Support and legal" class="text-sm">
+          <h2 class="font-semibold text-[var(--color-text-secondary)] mb-3">Support &amp; Legal</h2>
+          <ul class="space-y-2 text-[var(--color-text-muted)]">
+            <li><a href="support.html"        class="hover:text-[var(--color-brand)] transition-colors">Support</a></li>
+            <li><a href="privacy-policy.html" class="hover:text-[var(--color-brand)] transition-colors">Privacy Policy</a></li>
+            <li><a href="#" data-cc="settings" class="hover:text-[var(--color-brand)] transition-colors">Cookie Settings</a></li>
+          </ul>
+        </nav>
+
       </div>
-      <nav class="flex flex-wrap justify-center gap-6" aria-label="Footer">
-        <a href="index.html"               class="hover:text-[var(--color-brand)] transition-colors">Home</a>
-        <a href="index.html#features"      class="hover:text-[var(--color-brand)] transition-colors">Features</a>
-        <a href="index.html#plans"         class="hover:text-[var(--color-brand)] transition-colors">Plans</a>
-        <a href="support.html"             class="hover:text-[var(--color-brand)] transition-colors">Support</a>
-        <a href="privacy-policy.html"      class="hover:text-[var(--color-brand)] transition-colors">Privacy Policy</a>
-        <a href="time-zone-converter.html" class="hover:text-[var(--color-brand)] transition-colors">Time Zone Converter</a>
-        <a href="ios-widgets.html"         class="hover:text-[var(--color-brand)] transition-colors">iOS Widgets</a>
-      </nav>
-      <p>© 2026 Scott Breen</p>
+
+      <div class="mt-10 pt-6 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--color-text-muted)]">
+        <p>© 2026 Scott Breen. All rights reserved.</p>
+        <p>Made for people who work across time zones.</p>
+      </div>
     </div>
   </footer>
 

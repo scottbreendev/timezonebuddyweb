@@ -21,7 +21,9 @@ website/
 └── images/
     ├── icon.png            ← App icon (1024×1024 PNG, rendered by render_icon/ — run `cd render_icon && swift run render_icon ../website/images/icon.png` to regenerate)
     ├── device-frame.png    ← iPhone frame overlay
-    ├── ss-01.png … ss-05.png  ← App screenshots
+    ├── ss-*.webp           ← App screen captures (720px-wide WebP from docs/screenshots/1.3.0-14): ss-home, ss-home-light, ss-detail, ss-timeshift, ss-meeting, ss-meeting-overlap, ss-meeting-widget, ss-dst, ss-widgets-home, ss-lock, ss-gallery
+    ├── crop-*.webp         ← Detail sub-feature crops (crossover, daylight, workhours)
+    ├── widget-*.webp       ← Widget renders used on ios-widgets.html
     └── og-image.png        ← Social preview (create before go-live)
 ```
 

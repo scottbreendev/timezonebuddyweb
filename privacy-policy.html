@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Apple Smart App Banner: shows the App Store "GET" banner at the top of the page in iOS Safari -->
+  <meta name="apple-itunes-app" content="app-id=6760805989" />
   <title>Privacy Policy — Time Zone Buddy</title>
 
   <!-- Favicon -->
@@ -49,33 +51,9 @@
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Firebase Analytics -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCn7GMc5UZO7iKN3OsOkC23iQB7Zp9PNtY",
-      authDomain: "time-zone-buddy-pinecode.firebaseapp.com",
-      projectId: "time-zone-buddy-pinecode",
-      storageBucket: "time-zone-buddy-pinecode.firebasestorage.app",
-      messagingSenderId: "808205346526",
-      appId: "1:808205346526:web:3aef061bd46ed801ec844f",
-      measurementId: "G-05SZGTC4KJ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-
-    const PAGE_SOURCE = 'privacy_policy';
-
-    document.addEventListener('click', (e) => {
-      const cta = e.target.closest('[data-section]');
-      if (cta) {
-        logEvent(analytics, 'cta_click', { section: cta.dataset.section, source: PAGE_SOURCE });
-      }
-    });
-  </script>
+  <!-- Firebase Analytics (consent-gated — loads only after opt-in; see js/analytics.js) -->
+  <script>window.TZB_PAGE_SOURCE = 'privacy_policy';</script>
+  <script defer src="js/analytics.js"></script>
 </head>
 
 <body class="bg-[var(--color-bg)]" :class="{ dark: dark }">
@@ -311,6 +289,14 @@
         </ul>
         <p class="mt-2 text-sm">Provider: <a href="https://date.nager.at" class="text-[var(--color-brand)] hover:underline">date.nager.at</a></p>
 
+        <h3 class="font-semibold text-[var(--color-text-primary)] mt-6 mb-2" id="website">2.10 Website Analytics &amp; Cookies (tzbuddy.app)</h3>
+        <p class="text-sm">This website uses <strong class="text-[var(--color-text-primary)]">Firebase Analytics</strong> (Google) to understand which pages and features are popular, using an anonymous analytics cookie/identifier. As in the App, it is <strong>not</strong> used for advertising, profiling, or the sale of data.</p>
+        <ul class="mt-2 list-disc list-inside space-y-1 text-sm">
+          <li>Analytics load <strong>only after you accept</strong> in the cookie banner — if you decline, no analytics cookies are set and nothing is sent to Google</li>
+          <li>Your choice is stored locally on your device; you can change it at any time via the <strong>Cookie Settings</strong> link in the footer</li>
+          <li>No account, name, or contact details are collected, and the website sets no advertising or cross-site tracking cookies</li>
+        </ul>
+
       </section>
 
       <!-- §3 Not collected -->
@@ -502,21 +488,55 @@
   </main>
 
   <!-- ── Footer ────────────────────────────────────────────── -->
-  <footer class="bg-[var(--color-surface)] border-t border-[var(--color-border)] py-10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--color-text-muted)]">
-      <div class="flex items-center gap-2">
-        <img src="images/icon.png" alt="" class="w-5 h-5 rounded" aria-hidden="true" />
-        <span class="font-semibold text-[var(--color-text-secondary)]">Time Zone Buddy</span>
+  <footer class="bg-[var(--color-surface)] border-t border-[var(--color-border)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <div class="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2">
+            <img src="images/icon.png" alt="" class="w-7 h-7 rounded-lg" aria-hidden="true" />
+            <span class="font-bold text-[var(--color-text-primary)]">Time Zone Buddy</span>
+          </div>
+          <p class="mt-3 text-sm text-[var(--color-text-muted)] max-w-xs">Know the time. Everywhere. The friendly world clock &amp; meeting planner for iPhone, iPad &amp; Mac.</p>
+        </div>
+
+        <!-- Product -->
+        <nav aria-label="Product" class="text-sm">
+          <h2 class="font-semibold text-[var(--color-text-secondary)] mb-3">Product</h2>
+          <ul class="space-y-2 text-[var(--color-text-muted)]">
+            <li><a href="index.html"          class="hover:text-[var(--color-brand)] transition-colors">Home</a></li>
+            <li><a href="index.html#features" class="hover:text-[var(--color-brand)] transition-colors">Features</a></li>
+            <li><a href="index.html#plans"    class="hover:text-[var(--color-brand)] transition-colors">Plans</a></li>
+          </ul>
+        </nav>
+
+        <!-- Guides -->
+        <nav aria-label="Guides" class="text-sm">
+          <h2 class="font-semibold text-[var(--color-text-secondary)] mb-3">Guides</h2>
+          <ul class="space-y-2 text-[var(--color-text-muted)]">
+            <li><a href="world-clock-app.html"     class="hover:text-[var(--color-brand)] transition-colors">World Clock App</a></li>
+            <li><a href="time-zone-converter.html" class="hover:text-[var(--color-brand)] transition-colors">Time Zone Converter</a></li>
+            <li><a href="ios-widgets.html"         class="hover:text-[var(--color-brand)] transition-colors">iOS Widgets</a></li>
+          </ul>
+        </nav>
+
+        <!-- Support & Legal -->
+        <nav aria-label="Support and legal" class="text-sm">
+          <h2 class="font-semibold text-[var(--color-text-secondary)] mb-3">Support &amp; Legal</h2>
+          <ul class="space-y-2 text-[var(--color-text-muted)]">
+            <li><a href="support.html"        class="hover:text-[var(--color-brand)] transition-colors">Support</a></li>
+            <li><a href="privacy-policy.html" class="hover:text-[var(--color-brand)] transition-colors">Privacy Policy</a></li>
+            <li><a href="#" data-cc="settings" class="hover:text-[var(--color-brand)] transition-colors">Cookie Settings</a></li>
+          </ul>
+        </nav>
+
       </div>
-      <nav class="flex flex-wrap justify-center gap-6" aria-label="Footer">
-        <a href="index.html"               class="hover:text-[var(--color-brand)] transition-colors">Home</a>
-        <a href="support.html"             class="hover:text-[var(--color-brand)] transition-colors">Support</a>
-        <a href="privacy-policy.html"      class="hover:text-[var(--color-brand)] transition-colors">Privacy Policy</a>
-        <a href="world-clock-app.html"     class="hover:text-[var(--color-brand)] transition-colors">World Clock App</a>
-        <a href="time-zone-converter.html" class="hover:text-[var(--color-brand)] transition-colors">Time Zone Converter</a>
-        <a href="ios-widgets.html"         class="hover:text-[var(--color-brand)] transition-colors">iOS Widgets</a>
-      </nav>
-      <p>© 2026 Scott Breen</p>
+
+      <div class="mt-10 pt-6 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--color-text-muted)]">
+        <p>© 2026 Scott Breen. All rights reserved.</p>
+        <p>Made for people who work across time zones.</p>
+      </div>
     </div>
   </footer>
 

@@ -50,7 +50,7 @@ document.addEventListener('alpine:init', () => {
 
   Alpine.data('carousel', () => ({
     active: 0,
-    total: 4,           // ss-01 through ss-04
+    total: 8,           // 8 screenshot slides (home, detail, meeting overlap, time shift, DST, home widgets, lock, gallery)
     touchStartX: 0,
     get prevIndex() { return (this.active - 1 + this.total) % this.total; },
     get nextIndex() { return (this.active + 1) % this.total; },
@@ -84,7 +84,7 @@ document.addEventListener('alpine:init', () => {
       { q: 'What does Plus include that Lifetime doesn\'t?',
         a: 'iCloud Sync (your zones appear instantly on every Apple device), early access to new features, and future platform support (Windows, Web). If iCloud Sync matters to you, Plus is the right choice.' },
       { q: 'Is my data private?',
-        a: 'Yes. Time Zone Buddy has no servers, no accounts, and no analytics. Everything stays on your device. iCloud Sync (Plus only) stores data in your personal iCloud account — not ours.' },
+        a: 'Yes. Time Zone Buddy has no servers of our own and no accounts — your zones, groups, and settings never leave your device. We use only anonymous, aggregate analytics (Firebase) to see which features are used; it is never linked to your identity and never sold. iCloud Sync (Plus only) stores data in your personal iCloud account — not ours.' },
       { q: 'How do DST alerts work?',
         a: 'When a tracked timezone has an upcoming daylight saving change within 7 days, an amber banner appears on the Home screen (Lifetime/Plus only). Optional push notifications fire at 7 days before, the business day before, the morning of, and the day after — all scheduled on-device.' },
       { q: 'Does Time Zone Buddy work with Siri and Shortcuts?',
